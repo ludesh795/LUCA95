@@ -15,3 +15,21 @@ jobs:
         username: myFtpUserName
         password: ${{ secrets.password }}
         local-dir:  ./public/
+name: Release Workflow
+
+on:
+  push:
+    tags:
+      - 'release/*'  # Trigger nur bei Tags, die mit 'release/' beginnen
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run your build or deployment script
+      run: |
+        echo "Building and deploying for tag ${{ github.ref }}"
